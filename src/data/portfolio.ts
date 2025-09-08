@@ -61,6 +61,7 @@ export const portfolio: PortfolioData = {
     'NoSQL',
     'Solidity',
     'Web3',
+    'REST'
   ],
   skillsILove: [
     'TypeScript',

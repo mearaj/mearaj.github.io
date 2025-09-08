@@ -31,7 +31,6 @@ const LINK_SUBMENU = [
   {href: '#instagram', label: 'Instagram'},
   {href: '#x', label: 'X (Twitter)'},
   {href: '#linkedin', label: 'LinkedIn'},
-  {href: '#whatsapp', label: 'WhatsApp'},
   {href: '#gitlab', label: 'GitLab'},
   {href: '#discord', label: 'Discord'},
   {href: '#stackoverflow', label: 'Stack Overflow'},
