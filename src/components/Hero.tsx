@@ -20,7 +20,7 @@ export default function Hero() {
       <Container>
         <Stack spacing={{ xs: 4, sm: 5, md: 6 }} alignItems="center" textAlign="center">
           <Avatar
-            src="/profile.jpg"
+            src="/profile.png"
             alt={portfolio.name}
             sx={{ width: 96, height: 96, boxShadow: 3 }}
           />
