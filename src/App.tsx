@@ -5,6 +5,7 @@ import About from './components/About';
 import Skills from './components/Skills';
 import Footer from './components/Footer';
 import topcoderCertificate from './assets/topcoderCertificate.png';
+import profileMearaj from './assets/profileMearaj.png';
 import theme from "./theme.ts";
 
 
@@ -64,22 +65,42 @@ export default function App() {
             <Box component="section" id="topcoder-cert" sx={scrollTopStyle}>
               <Typography variant="h3" textAlign="center" fontWeight={800} gutterBottom>Topcoder
                 Certificate</Typography>
-              <Box
-                component="img"
-                src={topcoderCertificate}
-                alt="Topcoder Certificate"
-                loading="lazy"
-                decoding="async"
-                sx={{
-                  width: '100%',
-                  maxWidth: 900,
-                  mx: 'auto',
-                  display: 'block',
-                  borderRadius: 2,
-                  border: '1px solid',
-                  borderColor: 'divider',
-                }}
-              />
+              <Box sx={{display: 'flex', flexDirection: 'column', gap: {xs: 2, sm: 3}}}>
+                <Box
+                  component="img"
+                  src={topcoderCertificate}
+                  alt="Topcoder Certificate"
+                  loading="lazy"
+                  decoding="async"
+                  sx={{
+                    width: '100%',
+                    maxWidth: 900,
+                    mx: 'auto',
+                    display: 'block',
+                    borderRadius: 2,
+                    border: '1px solid',
+                    borderColor: 'divider',
+                  }}
+                />
+
+                <Box
+                  component="img"
+                  src={profileMearaj}
+                  alt="Mearaj profile"
+                  loading="lazy"
+                  decoding="async"
+                  sx={{
+                    width: '100%',
+                    maxWidth: 900,
+                    height: 'auto',
+                    mx: 'auto',
+                    display: 'block',
+                    borderRadius: 2,
+                    border: '1px solid',
+                    borderColor: 'divider',
+                  }}
+                />
+              </Box>
             </Box>
 
             <Box component="section" sx={spacingStyle}>
@@ -157,11 +178,24 @@ export default function App() {
                   </Box>
                 </Box>
 
-                <Box id="discord" component="section" sx={{mb: {xs: 0, md: 0}, scrollMarginTop: 96}}>
+                <Box id="discord" component="section" sx={scrollTopStyle}>
                   <Typography variant="h3" fontWeight={800} gutterBottom>Discord</Typography>
                   <Box component="a" href="https://discord.com/users/mearaj" target="_blank" rel="noreferrer"
                        sx={{textDecoration: 'underline', wordBreak: 'break-all'}}>
                     https://discord.com/users/mearaj
+                  </Box>
+                </Box>
+
+                <Box id="stackoverflow" component="section" sx={scrollTopStyle}>
+                  <Typography variant="h3" fontWeight={800} gutterBottom>Stack Overflow</Typography>
+                  <Box
+                    component="a"
+                    href="https://stackoverflow.com/users/2875070/mearaj?tab=profile"
+                    target="_blank"
+                    rel="noreferrer"
+                    sx={{textDecoration: 'underline', wordBreak: 'break-all'}}
+                  >
+                    https://stackoverflow.com/users/2875070/mearaj?tab=profile
                   </Box>
                 </Box>
               </Box>
