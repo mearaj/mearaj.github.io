@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion';
-import type { ReactNode } from 'react';
+import { useCallback, useState, type ReactNode } from 'react';
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -17,6 +17,8 @@ export function StaggerContainer({
   delayChildren = 0.08,
 }: ContainerProps) {
   const reduceMotion = useReducedMotion();
+  const [tick, setTick] = useState(0);
+  const onEnter = useCallback(() => setTick((t) => t + 1), []);
 
   if (reduceMotion) {
     return <div className={className}>{children}</div>;
@@ -25,17 +27,22 @@ export function StaggerContainer({
   return (
     <motion.div
       className={className}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.12, margin: '0px 0px -40px 0px' }}
-      variants={{
-        hidden: {},
-        visible: {
-          transition: { staggerChildren: stagger, delayChildren },
-        },
-      }}
+      onViewportEnter={onEnter}
+      viewport={{ amount: 0.1, margin: '0px 0px 12% 0px', once: false }}
     >
-      {children}
+      <motion.div
+        key={tick}
+        initial="hidden"
+        animate={tick > 0 ? 'visible' : 'hidden'}
+        variants={{
+          hidden: {},
+          visible: {
+            transition: { staggerChildren: stagger, delayChildren },
+          },
+        }}
+      >
+        {children}
+      </motion.div>
     </motion.div>
   );
 }
@@ -49,7 +56,7 @@ type ItemProps = {
 export function StaggerItem({ children, className, direction = 'up' }: ItemProps) {
   const reduceMotion = useReducedMotion();
   const offset =
-    direction === 'left' ? { x: -24, y: 0 } : direction === 'right' ? { x: 24, y: 0 } : { y: 24, x: 0 };
+    direction === 'left' ? { x: -20, y: 0 } : direction === 'right' ? { x: 20, y: 0 } : { y: 20, x: 0 };
 
   if (reduceMotion) {
     return <div className={className}>{children}</div>;
@@ -58,15 +65,15 @@ export function StaggerItem({ children, className, direction = 'up' }: ItemProps
   return (
     <motion.div
       className={className}
-      style={{ maxWidth: '100%', overflowX: direction === 'up' ? undefined : 'clip' }}
+      style={{ maxWidth: '100%' }}
       variants={{
-        hidden: { opacity: 0, ...offset, scale: 0.96 },
+        hidden: { opacity: 0, ...offset, scale: 0.97 },
         visible: {
           opacity: 1,
           x: 0,
           y: 0,
           scale: 1,
-          transition: { duration: 0.5, ease },
+          transition: { duration: 0.45, ease },
         },
       }}
     >

@@ -136,7 +136,7 @@ export default function App() {
                   </ScrollReveal>
                   <Grid container rowSpacing={{ xs: 3, md: 8 }} columnSpacing={{ xs: 3, md: 4 }} sx={{ width: '100%', mx: 0 }}>
                     {socialLinks.map((item, index) => (
-                      <Grid key={item.id} size={{ xs: 12, md: 6 }} sx={{ overflow: 'clip', minWidth: 0 }}>
+                      <Grid key={item.id} size={{ xs: 12, md: 6 }} sx={{ minWidth: 0 }}>
                         <SocialLinkSection item={item} index={index} />
                       </Grid>
                     ))}

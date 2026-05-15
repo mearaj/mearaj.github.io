@@ -11,7 +11,9 @@
     "build:gh": "tsc -b && vite build --base=/",
     "predeploy": "npm run build:gh && node -e \"const fs=require('fs');fs.copyFileSync('dist/index.html','dist/404.html')\"",
     "deploy": "gh-pages -d dist",
-    "deployToAll": "npm run deploy && npm run build && firebase deploy"
+    "deploy:gh": "npm run predeploy && gh-pages -d dist",
+    "deploy:firebase": "npm run build && firebase deploy",
+    "deploy:all": "npm run deploy:gh && npm run deploy:firebase"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

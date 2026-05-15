@@ -1,17 +1,24 @@
-import { motion, useReducedMotion, type Transition } from 'framer-motion';
-import type { CSSProperties, ReactNode } from 'react';
+import { motion, useReducedMotion, type Transition, type Variants } from 'framer-motion';
+import { useCallback, useState, type CSSProperties, type ReactNode } from 'react';
 
 export type RevealDirection = 'up' | 'down' | 'left' | 'right' | 'scale';
 
 const hiddenOffset: Record<RevealDirection, { x?: number; y?: number; scale?: number }> = {
-  up: { y: 48 },
-  down: { y: -48 },
-  left: { x: -40 },
-  right: { x: 40 },
-  scale: { scale: 0.96, y: 20 },
+  up: { y: 40 },
+  down: { y: -40 },
+  left: { x: -36 },
+  right: { x: 36 },
+  scale: { scale: 0.96, y: 16 },
 };
 
 const ease = [0.22, 1, 0.36, 1] as const;
+
+function buildVariants(direction: RevealDirection): Variants {
+  return {
+    hidden: { opacity: 0, ...hiddenOffset[direction] },
+    visible: { opacity: 1, x: 0, y: 0, scale: 1 },
+  };
+}
 
 type Props = {
   children: ReactNode;
@@ -20,9 +27,7 @@ type Props = {
   duration?: number;
   className?: string;
   style?: CSSProperties;
-  /** 0–1: how much of the element must be visible before animating */
   amount?: number;
-  once?: boolean;
 };
 
 export default function ScrollReveal({
@@ -32,11 +37,16 @@ export default function ScrollReveal({
   duration = 0.7,
   className,
   style,
-  amount = 0.18,
-  once = true,
+  amount = 0.12,
 }: Props) {
   const reduceMotion = useReducedMotion();
-  const offset = hiddenOffset[direction];
+  const [tick, setTick] = useState(0);
+
+  const onEnter = useCallback(() => {
+    setTick((t) => t + 1);
+  }, []);
+
+  const transition: Transition = { duration, delay, ease };
 
   if (reduceMotion) {
     return (
@@ -46,24 +56,23 @@ export default function ScrollReveal({
     );
   }
 
-  const transition: Transition = { duration, delay, ease };
-
-  const slidesHorizontally = direction === 'left' || direction === 'right';
-
   return (
     <motion.div
       className={className}
-      style={{
-        ...style,
-        overflowX: slidesHorizontally ? 'clip' : undefined,
-        maxWidth: '100%',
-      }}
-      initial={{ opacity: 0, ...offset }}
-      whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
-      viewport={{ once, amount, margin: '0px 0px -48px 0px' }}
-      transition={transition}
+      style={{ ...style, maxWidth: '100%' }}
+      onViewportEnter={onEnter}
+      viewport={{ amount, margin: '0px 0px 12% 0px', once: false }}
     >
-      {children}
+      <motion.div
+        key={tick}
+        variants={buildVariants(direction)}
+        initial="hidden"
+        animate={tick > 0 ? 'visible' : 'hidden'}
+        transition={transition}
+        style={{ maxWidth: '100%' }}
+      >
+        {children}
+      </motion.div>
     </motion.div>
   );
 }
