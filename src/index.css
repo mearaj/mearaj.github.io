@@ -1,12 +1,28 @@
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
+  max-width: 100%;
 }
+
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
+
 body {
   margin: 0;
-  background: #fafafa;
+  overflow-x: clip;
+}
+
+#root {
+  overflow-x: clip;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 /* Smooth scroll is nice for UX but can confuse capture height in rare cases */
